@@ -1,0 +1,87 @@
+:root {
+    --dark-bg: #0d1117;
+    --dark-card: #161b22;
+    --dark-border: #30363d;
+    --dark-text: #c9d1d9;
+    --dark-text-secondary: #8b949e;
+    --github-green: #238636;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.container {
+    text-align: center;
+    background-color: var(--dark-card);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--dark-border);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+    color: var(--dark-text);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.container p {
+    color: var(--dark-text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.search {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.search input {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background-color: var(--dark-bg);
+    border: 1px solid var(--dark-border);
+    border-radius: 6px;
+    color: var(--dark-text);
+    width: 280px;
+    transition: all 0.2s ease;
+}
+
+.search input:focus {
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+}
+
+.search input::placeholder {
+    color: var(--dark-text-secondary);
+}
+
+.search button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: var(--github-green);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.search button:hover {
+    background-color: #2ea043;
+}
+
+.search button:active {
+    background-color: #238636;
+}
