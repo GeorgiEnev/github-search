@@ -32,9 +32,19 @@ async function onSearch() {
 function displayUser(user) {
     details.innerHTML = `
     <div class="user-info">
-      <h2>${user.name}</h2>
-      <p class="username">@${user.login}</p>
+        <img class="avatar" src="${user.avatar_url}" alt="${user.login} avatar"/>
+
+        <h2>${user.name}</h2>
+
+        <p class="username">
+            <a href="${user.html_url}" target="_blank" rel="noopener noreferrer">
+                @${user.login}
+            </a>
+        </p>
+
       <p>Public repositories: ${user.public_repos}</p>
+      <p>Followers: ${user.followers}</p>
+      <p>Following: ${user.following}</p>
     </div>
   `;
     
