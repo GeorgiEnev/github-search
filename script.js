@@ -30,22 +30,38 @@ async function onSearch() {
 }
 
 function displayUser(user) {
-    details.innerHTML = `
-    <div class="user-info">
-        <img class="avatar" src="${user.avatar_url}" alt="${user.login} avatar"/>
+  details.innerHTML = `
+        <div class="user-info">
 
-        <h2>${user.name}</h2>
+            <div class="user-header">
+                <img
+                    class="avatar"
+                    src="${user.avatar_url}"
+                    alt="${user.login} avatar"
+                />
 
-        <p class="username">
-            <a href="${user.html_url}" target="_blank" rel="noopener noreferrer">
-                @${user.login}
-            </a>
-        </p>
+                <div class="user-title">
+                    <h2>${user.name}</h2>
+                    <a class="username" href="${user.html_url}" target="_blank" rel="noopener noreferrer">@${user.login}</a>
+                </div>
+            </div>
 
-      <p>Public repositories: ${user.public_repos}</p>
-      <p>Followers: ${user.followers}</p>
-      <p>Following: ${user.following}</p>
-    </div>
-  `;
-    
+            <div class="user-stats">
+                <div>
+                    <span>${user.public_repos}</span>
+                    <small>Public Repos</small>
+                </div>
+                <div>
+                    <span>${user.followers}</span>
+                    <small>Followers</small>
+                </div>
+                <div>
+                    <span>${user.following}</span>
+                    <small>Following</small>
+                </div>
+            </div>
+
+        </div>
+    `;
 }
+
