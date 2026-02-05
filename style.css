@@ -91,6 +91,7 @@ h1 {
 }
 
 .user-info {
+    animation: fadeIn 0.35s ease;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -152,4 +153,15 @@ h1 {
 .user-stats small {
     color: var(--dark-text-secondary);
     font-size: 0.85rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
