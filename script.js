@@ -33,92 +33,59 @@ async function onSearch() {
 }
 
 function displayUser(user) {
-  const formattedDate = user.created_at
-    ? new Date(user.created_at).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    : "N/A";
+  const template = document.getElementById("user-template");
+  const clone = template.content.cloneNode(true);
 
-  details.innerHTML = `
-    <div class="user-info">
-      <div class="user-header">
-        <div class="avatar-container">
-          <img
-            class="avatar"
-            src="${user.avatar_url}"
-            alt="${user.login}'s profile picture"
-            loading="lazy"
-          />
-          ${
-            user.blog
-              ? `
-            <a href="${user.blog}" class="profile-link" target="_blank">
-              <i class="fas fa-link"></i>
-            </a>
-          `
-              : ""
-          }
-        </div>
-        
-        <div class="user-title">
-          <h2>${user.name || user.login}</h2>
-          <a class="username" href="${user.html_url}" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-github"></i> @${user.login}
-          </a>
-          
-          ${
-            user.bio
-              ? `
-            <p class="user-bio">
-              <i class="fas fa-quote-left"></i>
-              ${user.bio}
-            </p>
-          `
-              : ""
-          }
-          
-          <div class="user-meta">
-            ${
-              user.location
-                ? `
-              <span class="meta-item">
-                <i class="fas fa-map-marker-alt"></i>
-                ${user.location}
-              </span>
-            `
-                : ""
-            }
-            
-            ${
-              user.created_at
-                ? `
-              <span class="meta-item">
-                <i class="far fa-calendar-alt"></i>
-                Joined ${formattedDate}
-              </span>
-            `
-                : ""
-            }
-          </div>
-        </div>
-      </div>
+  const avatar = clone.querySelector(".avatar");
+  avatar.src = user.avatar_url;
+  avatar.alt = `${user.login}'s avatar`;
 
-      <div class="user-stats">
-        <div class="stat-item">
-          <span class="stat-number">${user.public_repos}</span>
-          <small class="stat-label">Public Repos</small>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">${user.followers}</span>
-          <small class="stat-label">Followers</small>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">${user.following}</span>
-          <small class="stat-label">Following</small>
-        </div>
-      </div>
-    </div>
-  `;
+  const blogLink = clone.querySelector(".profile-link");
+  if (user.blog) {
+    blogLink.href = user.blog;
+  } else {
+    blogLink.remove();
+  }
+
+  clone.querySelector(".name").textContent = user.name ?? user.login;
+
+  const usernameLink = clone.querySelector(".username");
+  usernameLink.href = user.html_url;
+  usernameLink.querySelector("span").textContent = `@${user.login}`;
+
+  const bio = clone.querySelector(".user-bio");
+  if (user.bio) {
+    bio.textContent = user.bio;
+  } else {
+    bio.remove();
+  }
+
+  const location = clone.querySelector(".location");
+  if (user.location) {
+    location.textContent = user.location;
+  } else {
+    location.remove();
+  }
+
+  const joined = clone.querySelector(".joined");
+  if (user.created_at) {
+    joined.textContent = `Joined ${formatJoinDate(user.created_at)}`;
+  } else {
+    joined.remove();
+  }
+
+  clone.querySelector(".repos").textContent = user.public_repos;
+  clone.querySelector(".followers").textContent = user.followers;
+  clone.querySelector(".following").textContent = user.following;
+  
+  details.innerHTML = "";
+  details.appendChild(clone);
+}
+
+function formatJoinDate(date) {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }

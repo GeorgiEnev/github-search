@@ -17,6 +17,50 @@
       </div>
 
       <div class="details" id="details"></div>
+
+      <template id="user-template">
+        <div class="user-info">
+          <div class="user-header">
+            <div class="avatar-container">
+              <img class="avatar" />
+              <a class="profile-link" target="_blank">
+                <i class="fas fa-link"></i>
+              </a>
+            </div>
+
+            <div class="user-title">
+              <h2 class="name"></h2>
+
+              <a class="username" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+                <span></span>
+              </a>
+
+              <p class="user-bio"></p>
+
+              <div class="user-meta">
+                <span class="location"></span>
+                <span class="joined"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-stats">
+            <div class="stat-item">
+              <span class="stat-number repos"></span>
+              <small>Public Repos</small>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number followers"></span>
+              <small>Followers</small>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number following"></span>
+              <small>Following</small>
+            </div>
+          </div>
+        </div>
+      </template>
     </div>
   </body>
 </html>
