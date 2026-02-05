@@ -17,7 +17,17 @@ async function onSearch() {
   }
 
   try {
-    const resp = await fetch(URL);
+    showLoading();
+
+    searchBtn.disabled = true;
+    searchBtn.textContent = "Searching...";
+    searchBtn.style.opacity = "0.7";
+
+    const delay = new Promise((resolve) => setTimeout(resolve, 800));
+
+    const fetchPromise = await fetch(URL);
+
+    const [_, resp] = await Promise.all([delay, fetchPromise]);
 
     if (!resp.ok) {
       details.innerHTML = "<p>User not found.</p>";
@@ -25,11 +35,29 @@ async function onSearch() {
     }
 
     const user = await resp.json();
-
     displayUser(user);
+
   } catch {
     details.innerHTML = "<p>Something went wrong.</p>";
+  } finally {
+    searchBtn.disabled = false;
+    searchBtn.textContent = "Search";
+    searchBtn.style.opacity = "1";
   }
+}
+
+function showLoading() {
+  details.innerHTML = `
+        <div class="wrapper">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+        </div>
+        <div class="loading-text">Searching GitHub...</div>
+    `;
 }
 
 function displayUser(user) {
@@ -77,7 +105,7 @@ function displayUser(user) {
   clone.querySelector(".repos").textContent = user.public_repos;
   clone.querySelector(".followers").textContent = user.followers;
   clone.querySelector(".following").textContent = user.following;
-  
+
   details.innerHTML = "";
   details.appendChild(clone);
 }
