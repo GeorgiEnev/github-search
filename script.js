@@ -64,6 +64,12 @@ function displayUser(user) {
   const template = document.getElementById("user-template");
   const clone = template.content.cloneNode(true);
 
+  const reposStat = clone.querySelector(".repos-clickable");
+
+  reposStat.addEventListener("click", () => {
+    console.log("Repos clicked for:", user.login);
+  });
+
   const avatar = clone.querySelector(".avatar");
   avatar.src = user.avatar_url;
   avatar.alt = `${user.login}'s avatar`;
