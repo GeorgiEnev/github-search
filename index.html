@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css" />
     <script type="module" src="./script.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <title>Github Search</title>
   </head>
   <body>
@@ -60,6 +63,17 @@
               <small>Following</small>
             </div>
           </div>
+        </div>
+      </template>
+
+      <template id="repos-template">
+        <div class="repos-view">
+          <div class="repos-header">
+            <h2>Repositories</h2>
+            <button class="back-btn" aria-label="Back">← Back</button>
+          </div>
+
+          <div class="repos-list"></div>
         </div>
       </template>
     </div>

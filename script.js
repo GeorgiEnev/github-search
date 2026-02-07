@@ -2,6 +2,8 @@ const input = document.getElementById("input");
 const searchBtn = document.getElementById("searchBtn");
 const details = document.getElementById("details");
 
+let currentUser = null;
+
 searchBtn.addEventListener("click", onSearch);
 input.addEventListener("keypress", (e) => {
   if (e.key === "Enter") onSearch();
@@ -25,7 +27,7 @@ async function onSearch() {
 
     const delay = new Promise((resolve) => setTimeout(resolve, 800));
 
-    const fetchPromise = await fetch(URL);
+    const fetchPromise = fetch(URL);
 
     const [_, resp] = await Promise.all([delay, fetchPromise]);
 
@@ -36,7 +38,6 @@ async function onSearch() {
 
     const user = await resp.json();
     displayUser(user);
-
   } catch {
     details.innerHTML = "<p>Something went wrong.</p>";
   } finally {
@@ -64,11 +65,11 @@ function displayUser(user) {
   const template = document.getElementById("user-template");
   const clone = template.content.cloneNode(true);
 
+  currentUser = user;
+
   const reposStat = clone.querySelector(".repos-clickable");
 
-  reposStat.addEventListener("click", () => {
-    console.log("Repos clicked for:", user.login);
-  });
+  reposStat.addEventListener("click", showRepos);
 
   const avatar = clone.querySelector(".avatar");
   avatar.src = user.avatar_url;
@@ -122,4 +123,58 @@ function formatJoinDate(date) {
     month: "long",
     day: "numeric",
   });
+}
+
+async function showRepos() {
+  if (!currentUser) return;
+
+  details.innerHTML = "<p>Loading repositories…</p>";
+
+  try {
+    const resp = await fetch(currentUser.repos_url);
+
+    if (!resp.ok) {
+      details.innerHTML = "<p>Failed to load repositories.</p>";
+      return;
+    }
+
+    const repos = await resp.json();
+
+    renderRepos(repos);
+  } catch {
+    details.innerHTML = "<p>Something went wrong.</p>";
+  }
+}
+
+function renderRepos(repos) {
+  const template = document.getElementById("repos-template");
+  const clone = template.content.cloneNode(true);
+
+  const list = clone.querySelector(".repos-list");
+  const backBtn = clone.querySelector(".back-btn");
+
+  backBtn.addEventListener("click", () => {
+    displayUser(currentUser);
+  });
+
+  if (repos.length === 0) {
+    list.innerHTML = "<p>No repositories found.</p>";
+  }
+
+  repos.forEach((repo) => {
+    const item = document.createElement("div");
+    item.className = "repo-item";
+
+    item.innerHTML = `
+      <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">
+        ${repo.name}
+      </a>
+      ${repo.description ? `<p>${repo.description}</p>` : ""}
+    `;
+
+    list.appendChild(item);
+  });
+
+  details.innerHTML = "";
+  details.appendChild(clone);
 }

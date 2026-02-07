@@ -274,3 +274,60 @@ h1 {
     transform: translateY(0);
   }
 }
+
+.repos-view {
+  animation: fadeIn 0.3s ease;
+}
+
+.repos-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--github-green);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  margin-left: auto;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
+
+.repos-list {
+  max-height: 360px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-right: 0.25rem;
+}
+
+.repo-item {
+  padding: 0.75rem 1rem;
+  background-color: var(--dark-bg);
+  border: 1px solid var(--dark-border);
+  border-radius: 8px;
+}
+
+.repo-item a {
+  color: var(--github-green);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.repo-item a:hover {
+  text-decoration: underline;
+}
+
+.repo-item p {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--dark-text-secondary);
+}
