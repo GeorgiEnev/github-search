@@ -4,10 +4,20 @@ const details = document.getElementById("details");
 
 let currentUser = null;
 
+const searchView = document.getElementById("search-view");
+
 searchBtn.addEventListener("click", onSearch);
 input.addEventListener("keypress", (e) => {
   if (e.key === "Enter") onSearch();
 });
+
+function showSearchView() {
+  searchView.style.display = "";
+}
+
+function hideSearchView() {
+  searchView.style.display = "none";
+}
 
 async function onSearch() {
   const username = input.value.trim();
@@ -129,7 +139,7 @@ async function showRepos() {
   if (!currentUser) return;
 
   details.innerHTML = "<p>Loading repositories…</p>";
-
+  hideSearchView();
   try {
     const resp = await fetch(currentUser.repos_url);
 
@@ -154,6 +164,7 @@ function renderRepos(repos) {
   const backBtn = clone.querySelector(".back-btn");
 
   backBtn.addEventListener("click", () => {
+    showSearchView();
     displayUser(currentUser);
   });
 
