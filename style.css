@@ -306,28 +306,123 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding-right: 0.25rem;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--github-green) var(--dark-border);
+}
+
+.repos-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.repos-list::-webkit-scrollbar-track {
+  background: var(--dark-border);
+  border-radius: 3px;
+}
+
+.repos-list::-webkit-scrollbar-thumb {
+  background: var(--github-green);
+  border-radius: 3px;
+}
+
+.repos-list::-webkit-scrollbar-thumb:hover {
+  background: #2ea043;
 }
 
 .repo-item {
-  padding: 0.75rem 1rem;
-  background-color: var(--dark-bg);
+  padding: 1rem;
+  background-color: var(--dark-card);
   border: 1px solid var(--dark-border);
   border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.repo-item:hover {
+  border-color: var(--github-green);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(35, 134, 54, 0.1);
+}
+
+.repo-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: var(--github-green);
+  border-radius: 0 3px 3px 0;
+  transition: height 0.2s ease;
+}
+
+.repo-item:hover::before {
+  height: 70%;
 }
 
 .repo-item a {
-  color: var(--github-green);
-  font-weight: 500;
+  color: var(--dark-text);
+  font-weight: 600;
   text-decoration: none;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s ease;
 }
 
 .repo-item a:hover {
-  text-decoration: underline;
+  color: var(--github-green);
+  text-decoration: none;
 }
 
 .repo-item p {
   margin: 0.25rem 0 0;
   font-size: 0.9rem;
   color: var(--dark-text-secondary);
+  line-height: 1.4;
+}
+
+.back-btn {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  color: var(--dark-text);
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  background: var(--dark-bg);
+  border-color: var(--github-green);
+  color: var(--github-green);
+  text-decoration: none;
+  transform: translateX(-2px);
+}
+
+.repos-list p {
+  text-align: center;
+  padding: 2rem;
+  color: var(--dark-text-secondary);
+  font-style: italic;
+}
+
+.repo-stats {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--dark-text-secondary);
+}
+
+.repo-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.repo-stat i {
+  color: var(--github-green);
 }
